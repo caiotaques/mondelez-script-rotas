@@ -1,2 +1,6 @@
 /input/*
 /output/*
+__pycache__/
+*.pyc
+# exclude .gitkeep files
+!.gitkeep
