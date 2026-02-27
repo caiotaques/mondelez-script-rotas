@@ -11,7 +11,7 @@ def _pct(n, d):
 
 # ============= Ingerir e tratar hierarquia ================
 
-df_hierarquia = pd.read_excel("input/DMS_DM_LA_BR_Hierarchy G_Feb'26_M.xlsx", header=6)
+df_hierarquia = pd.read_excel("input/hierarquia_feb_26.xlsx", header=6)
 
 df_hierarquia = df_hierarquia.rename(columns={'Cliente/Costumer': 'id_cliente',
                          'Vendedor/ Salesman': 'id_vendedor',
@@ -51,7 +51,7 @@ df['cod_cliente'] = df['cod_cliente'].astype(str)
 
 # ============= Ingerir e tratar DIM_CLIENTE ================
 
-dim_cliente = pd.read_excel("input/DIM_CLIENTE.xlsx", header=0)
+dim_cliente = pd.read_excel("input/dim_cliente.xlsx", header=0)
 
 dim_cliente.rename(columns={'Masterdata Cliente[sk_customer_sellout]': 'cod_cliente',
                                'Masterdata Cliente[Gerente Area]': 'gerente_area',
@@ -126,7 +126,7 @@ base_order = [
 df_merge = df_merge[base_order + [c for c in df_merge.columns if c not in base_order]]
 
 # ============ Ingerir e tratar scores ==============
-scores = pd.read_csv("input/P010'25 a P02'26.csv")
+scores = pd.read_csv("input/score_p10_25_p02_26.csv")
 scores = scores[scores['Equipegerareavendas'].str.contains('gustavo', case=False, na=False)]
 scores['Vendedor'] = scores['Vendedor'].str.upper()
 
