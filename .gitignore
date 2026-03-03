@@ -1,6 +1,7 @@
-/input/*
-/output/*
-__pycache__/
+data/input/*
+data/output/*
+__pycache__
 *.pyc
 # exclude .gitkeep files
 !.gitkeep
+notebooks
