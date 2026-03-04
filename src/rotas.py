@@ -1,13 +1,12 @@
 # py_scripts/pcvrp_mod.py
 
-from prep import OUTPUT_DIR
+from .prep import OUTPUT_DIR
+from .osrm_client import build_matrices_with_osrm_or_fallback
 import numpy as np
 import pandas as pd
 import math
 from ortools.constraint_solver import pywrapcp, routing_enums_pb2
 import time
-from osrm_client import build_matrices_with_osrm_or_fallback
-
 
 def rotas(periodo_pesquisa: str, periodo_rotas: str) -> None:
 

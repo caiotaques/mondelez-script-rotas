@@ -336,9 +336,9 @@ def prep():
     print(f"[SELLOUT] trend_l6m:       {null_trnd} nulos de {total} registros ({pct_trnd:.1f}% sem dados)")
 
     # ============ Agregar período de pesquisa mais recente no nome do arquivo ==============
-    os.makedirs(f'output/{periodo_rotas}', exist_ok=True)
+    os.makedirs(OUTPUT_DIR / f'{periodo_rotas}', exist_ok=True)
 
-    df_merge.to_csv(f'output/{periodo_rotas}/pdvs_vendedores_{periodo_pesquisa}.csv', index=False)
+    df_merge.to_csv(OUTPUT_DIR / f'{periodo_rotas}/pdvs_vendedores_{periodo_pesquisa}.csv', index=False)
 
     print(f"[PREP] tempo total={time.time() - t0:.1f}")
 

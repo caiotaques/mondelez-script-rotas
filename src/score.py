@@ -1,12 +1,7 @@
 # py_scripts/score_mod.py
-from importlib import import_module
 import numpy as np
 import pandas as pd
 from typing import Dict, Optional, List
-import sys
-import os
-from pathlib import Path
-from importlib.machinery import SourceFileLoader
 
 from src.prep import OUTPUT_DIR
 
@@ -196,7 +191,7 @@ def compute_scores(
     print(f"Contagem de prioritários por {group_by}:\n{scores_mes.groupby(group_by)['prioritario'].sum()}")
 
     scores_mes.to_csv(
-        f"output/{periodo_rotas}/scores_{periodo_pesquisa}.csv",
+        OUTPUT_DIR / f'{periodo_rotas}/scores_{periodo_pesquisa}.csv',
         index=False
     )
     return scores_mes

@@ -1,7 +1,7 @@
 Perfeito. Vou te entregar um **README.md profissional**, pensado pra alguém da Mondelez conseguir rodar sem ficar te chamando no Teams a cada 5 minutos 😅
 
 
-# 📦 Projeto de Geração de Scores e Rotas (PCVRP)
+#  Projeto de Geração de Scores e Rotas (PCVRP)
 
 Este projeto realiza:
 
@@ -10,10 +10,8 @@ Este projeto realiza:
 3. Otimização de rotas por vendedor (PCVRP – Periodic Capacitated Vehicle Routing Problem)
 4. Exportação de layout final para integração com sistema MC1
   
-  
 
-  
-# 🚀 Como Rodar o Projeto
+#  Como Rodar o Projeto
 
 ## 1️⃣ Criar ambiente virtual
 
@@ -65,7 +63,9 @@ Escolha o cenário:
 
 Digite o número do cenário escolhido e aperte enter.
 
-# 📤 Output Gerado
+Agora é só esperar que os outputs serão gerados automaticamente.
+
+#  Output Gerado
 
 O arquivo final será salvo em:
 
@@ -82,7 +82,7 @@ output/P03/rotas_P03.csv
 Esse arquivo já está estruturado no layout esperado para integração com MC1.
 
 
-# ⚙️ Parâmetros do Modelo de Rota
+#  Parâmetros do Modelo de Rota
 
 Os principais parâmetros estão definidos em:
 
@@ -100,7 +100,7 @@ Parâmetros padrão:
 Esses valores podem ser ajustados conforme necessidade operacional.
 
 
-# 🌍 Cálculo de Distâncias
+#  Cálculo de Distâncias
 
 O sistema utiliza:
 
@@ -108,7 +108,7 @@ O sistema utiliza:
 * Fallback baseado em distância geográfica caso OSRM não responda
 
 
-# 🧠 Lógica de Otimização
+#  Lógica de Otimização
 
 Para cada vendedor:
 
@@ -118,27 +118,11 @@ Para cada vendedor:
 4. Balanceia carga entre dias
 5. Permite descarte de PDVs com penalização baseada no score
 
----
 
-# 🛠️ Troubleshooting
-
----
-
-### ❌ Erro ao instalar OR-Tools
-
-Tente:
-
-```bash
-pip install --upgrade pip
-pip install ortools
-```
-
----
 
 # 🔒 Observações Importantes
 
 * Os nomes de período devem seguir o padrão: `P01`, `P02`, `P03`, etc.
 * O sistema assume que o período de rota é o mês seguinte ao período do score.
-* Os arquivos de entrada devem conter colunas:
 
----
+
