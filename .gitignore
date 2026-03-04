@@ -5,3 +5,4 @@ __pycache__
 # exclude .gitkeep files
 !.gitkeep
 notebooks
+venv/*

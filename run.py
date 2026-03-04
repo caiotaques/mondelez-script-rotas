@@ -24,7 +24,7 @@ def main():
         print(f"\n❌ Erro durante a execução do pipeline: {e}")
     
     print("\n✅ Pipeline completo finalizado.")
-    print(f"Confira a pasta output/{periodo_rotas}/ para: pdvs_vendedores_*, scores_*, rotas_* e tarefas_*.")
+    print(f"Confira a pasta data/output/{periodo_rotas}/ para: pdvs_vendedores_*, scores_*, rotas_* e tarefas_*.")
 
 
 if __name__ == "__main__":
