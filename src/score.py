@@ -190,6 +190,9 @@ def compute_scores(
     # checar quantos prioritários por grupo
     print(f"Contagem de prioritários por {group_by}:\n{scores_mes.groupby(group_by)['prioritario'].sum()}")
 
+    scores_mes['cidcustomer'] = '0' + scores_mes['cidcustomer'].astype(str)
+    scores_mes['cidterritory'] = '0' + scores_mes['cidterritory'].astype(str)
+    
     scores_mes.to_csv(
         OUTPUT_DIR / f'{periodo_rotas}/scores_{periodo_pesquisa}.csv',
         index=False

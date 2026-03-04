@@ -142,7 +142,7 @@ def gerar_tarefas(periodo_pesquisa: str, periodo_rotas: str) -> pd.DataFrame:
         codigo = f"MISS-{base_date}-{np.random.randint(1, 10000):04d}"
 
         # ID do cliente na missão (mantive nome igual ao R: cidcustomer)
-        cidcustomer = str(pdv[id_col])
+        cidcustomer = '0' + str(pdv[id_col])
         nome_cliente = pdv.get("nome_cliente", pd.NA)
 
         if len(kpis_ruins) > 0:
@@ -180,7 +180,7 @@ def gerar_tarefas(periodo_pesquisa: str, periodo_rotas: str) -> pd.DataFrame:
                     "dendmissionexecution": dendmissionexecution,
                 }
             )
-
+    
     # após iterar todos os PDVs, grava o arquivo e retorna o dataframe completo
     out_path = OUTPUT_DIR / f"{periodo_rotas}/tarefas_{periodo_rotas}.csv"
     out_path.parent.mkdir(parents=True, exist_ok=True)

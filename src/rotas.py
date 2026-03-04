@@ -291,7 +291,8 @@ def rotas(periodo_pesquisa: str, periodo_rotas: str) -> None:
 
 
     df_all_rotas = df_all_rotas[order]
-
+    df_all_rotas["cidterritory"] = "0" + df_all_rotas["cidterritory"].astype(str)
+    df_all_rotas["cidcustomer"]  = "0" + df_all_rotas["cidcustomer"].astype(str)
 
     df_all_rotas.to_csv(OUTPUT_DIR / f"{periodo_rotas}/rotas_{periodo_rotas}.csv", index=False)
     print(f"Total de rotas concatenadas: {len(df_all_rotas)}")
