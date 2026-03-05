@@ -5,7 +5,7 @@ from typing import Dict, Optional, List
 
 from src.prep import OUTPUT_DIR
 
-def compute_scores(
+def gerar_scores(
     periodo_pesquisa: str,
     periodo_rotas: str,
     cenario: str = "misto",
@@ -64,7 +64,7 @@ def compute_scores(
     w_star, w_sell, w_trend = W_STAR, W_SELL12M, W_TREND6M
 
     # ============= Carrega base ==============
-    df = pd.read_csv(path_csv, dtype={"cod_cliente": str, "cnpj": str})
+    df = pd.read_csv(path_csv, dtype={"cod_cliente": str, "cnpj": str, "cidcustomer": str, "cidterritory": str, "ciduserowner": str})
     print(f"Número de PDVs por {group_by}:\n{df.groupby(group_by)['cnpj'].nunique()}")
 
     print(df.columns.tolist())
@@ -159,6 +159,7 @@ def compute_scores(
     d['cidcustomer'] = d['cod_cliente']  # para facilitar junção posterior
     # ----- Saída -----
     cols_out = [
+        "ciduserowner",
         "cnpj", "cod_cliente","cidcustomer", "nome_cliente", "vendedor", "cidterritory", 
         "endereco", "lat", "long", "companyname",
         "uf", "cidade", "gerente_area",

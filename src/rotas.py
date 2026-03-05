@@ -8,19 +8,17 @@ import math
 from ortools.constraint_solver import pywrapcp, routing_enums_pb2
 import time
 
-def rotas(periodo_pesquisa: str, periodo_rotas: str) -> None:
+def gerar_rotas(periodo_pesquisa: str, periodo_rotas: str) -> None:
 
     print("\n\n============================ 3 - ROTAS =========================")
 
-
-    # expected_cols = pd.read_csv('input/expected_layout/roteiro.csv', nrows=0, sep=';').columns.tolist()
-    # print(expected_cols)
-
+    # Importar dados de scores
     path = OUTPUT_DIR / f"{periodo_rotas}/scores_{periodo_pesquisa}.csv"
 
-    df_all_vendors = pd.read_csv(path, dtype={"cnpj": str}) 
+    df_all_vendors = pd.read_csv(path, dtype={"cnpj": str, "ciduserowner": str}) 
     df_all_vendors = df_all_vendors[df_all_vendors['prioritario'] == 1].copy() # filtra apenas prioritários
 
+    print(df_all_vendors.head())
     # extrai automaticamento o periodo do nome do arquivo scores_p02.csv -> p02 e adiciona 1 ao número para obter o período do arquivo de rotas (p03)
     periodo = path.stem.split("_")[-1].split(".")[0]
     periodo_num = int(periodo[1:]) + 1
@@ -190,22 +188,22 @@ def rotas(periodo_pesquisa: str, periodo_rotas: str) -> None:
             time_limit_s=time_limit_s,
         )
         if not rotas:
-            return pd.DataFrame(columns=["cnpj","semana","ordem","km_rota","min_rota","visitas_rota"])
+            return pd.DataFrame(columns=["ciduserowner", "cnpj","semana","ordem","km_rota","min_rota","visitas_rota"])
 
         out = []
         for r in rotas:
             if r is None or r.empty:
                 continue
             # garante colunas chave para o join de volta
-            for c in ["cnpj", 'cod_cliente',"nome_cliente", 'cidterritory',"lat", "long", "score", "semana", "ordem", "km_rota", "min_rota"]:
+            for c in ["ciduserowner", "cnpj", 'cod_cliente',"nome_cliente", 'cidterritory',"lat", "long", "score", "semana", "ordem", "km_rota", "min_rota"]:
                 if c not in r.columns:
                     r[c] = np.nan
             r["cnpj"] = r["cnpj"].astype(str)
 
-            out.append(r[["cnpj","cod_cliente","nome_cliente",'cidterritory',"lat","long","score","semana","ordem","km_rota","min_rota"]])
+            out.append(r[["ciduserowner","cnpj","cod_cliente","nome_cliente",'cidterritory',"lat","long","score","semana","ordem","km_rota","min_rota"]])
 
         if not out:
-            return pd.DataFrame(columns=["cnpj","cod_cliente","nome_cliente",'cidterritory',"lat","long","score","semana","ordem","km_rota","min_rota","visitas_rota"])
+            return pd.DataFrame(columns=["ciduserowner","cnpj","cod_cliente","nome_cliente",'cidterritory',"lat","long","score","semana","ordem","km_rota","min_rota","visitas_rota"])
 
         df_out = pd.concat(out, ignore_index=True)
 
@@ -256,7 +254,9 @@ def rotas(periodo_pesquisa: str, periodo_rotas: str) -> None:
     print(df_all_rotas.columns.tolist())
     print("\n=========================\n")
 
-    df_all_rotas['ciduserowner'] = pd.NA # código do vendedor na MC1
+
+
+    # df_all_rotas['ciduserowner'] = pd.NA # código do vendedor na MC1
     df_all_rotas['dstart'] = dstart
     df_all_rotas['dend'] = dend
     df_all_rotas['dcreated'] = pd.Timestamp.now().strftime('%Y-%m-%d')

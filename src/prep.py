@@ -5,7 +5,6 @@ import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-print(f"BASE_DIR definido como: {BASE_DIR}")
 
 INPUT_DIR = BASE_DIR / "data" / "input"
 OUTPUT_DIR = BASE_DIR / "data" / "output"
@@ -335,6 +334,24 @@ def prep():
     print(f"[SELLOUT] sellout_ton_ytd: {null_sell} nulos de {total} registros ({pct_sell:.1f}% sem dados)")
     print(f"[SELLOUT] trend_l6m:       {null_trnd} nulos de {total} registros ({pct_trnd:.1f}% sem dados)")
 
+    # ============ Adicionar coluna ciduserowner ================
+    df_ciduserowner = pd.read_csv(INPUT_DIR / "ciduserowner/dim_user_mc1.csv", sep=',', dtype=str)
+    df_ciduserowner.rename(columns={'cd_territory': 'cidterritory'}, inplace=True)
+
+    print(f"df_ciduserowner colunas: {df_ciduserowner.columns.tolist()}")
+    print(f"df_merge colunas finais: {df_merge.columns.tolist()}")
+
+    print(df_merge.head())
+    print(df_ciduserowner.head())
+    common_territories = set(df_merge['cidterritory'].dropna().unique()) & set(df_ciduserowner['cidterritory'].dropna().unique())
+    print(f"[CHECK] cidterritory em df_merge: {df_merge['cidterritory'].nunique()}, em df_ciduserowner: {df_ciduserowner['cidterritory'].nunique()}, em comum: {len(common_territories)}")
+    if not common_territories:
+        print("[WARN] Nenhum cidterritory em comum entre df_merge e df_ciduserowner!")
+    else:
+        print(f"[CHECK] Exemplos em comum: {list(common_territories)[:10]}")
+    df_merge = df_merge.merge(df_ciduserowner, on='cidterritory', how='left')
+    
+    print(df_merge[~df_merge['ciduserowner'].isna()].head())
     # ============ Agregar período de pesquisa mais recente no nome do arquivo ==============
     os.makedirs(OUTPUT_DIR / f'{periodo_rotas}', exist_ok=True)
 

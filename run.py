@@ -2,7 +2,7 @@
 # -----------------------------------------------------------------------------
 # Runner único: executa 01_prep -> 02_score -> 03_pcvrp -> 04_tasks
 # -----------------------------------------------------------------------------
-from src import prep, compute_scores, rotas, gerar_tarefas
+from src import prep, gerar_scores, gerar_rotas, gerar_tarefas
 
 def main():
     print('\n\n\n\n\n=============================== GERADOR DE TAREFAS E MISSÕES - MONDELEZ ===============================\n')
@@ -15,10 +15,15 @@ def main():
         cenario = '1'  # default para misto
     print(f"Cenário selecionado: {map_cenarios.get(cenario, 'Misto (padrão)')}")
 
+    pular_prep = input("Deseja pular a etapa de preparação dos dados? (s/n) ").strip().lower() == 's'
     try:
-        periodo_pesquisa, periodo_rotas = prep()
-        compute_scores(periodo_pesquisa, periodo_rotas, cenario=cenario)
-        rotas(periodo_pesquisa, periodo_rotas)
+        if not pular_prep:
+            periodo_pesquisa, periodo_rotas = prep()
+        else:
+            periodo_pesquisa = input("Digite o período de pesquisa (pXX): ").strip().upper()
+            periodo_rotas = input("Digite o período de rotas (pXX): ").strip().upper()
+        gerar_scores(periodo_pesquisa, periodo_rotas, cenario=cenario)
+        gerar_rotas(periodo_pesquisa, periodo_rotas)
         gerar_tarefas(periodo_pesquisa, periodo_rotas)
     except Exception as e:
         print(f"\n❌ Erro durante a execução do pipeline: {e}")
